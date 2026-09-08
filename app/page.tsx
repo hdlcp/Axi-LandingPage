@@ -1,450 +1,340 @@
-"use client";
-
-import Hero from "./(home)/Hero";
 import Image from "next/image";
-import React, { useState } from 'react';
+import Link from "next/link";
+import Hero from "./(home)/Hero";
+import Faq from "./(home)/Faq";
+import Reveal from "@/components/Reveal";
+import VideoPreview from "@/components/VideoPreview";
+import { ArrowRight } from "lucide-react";
 
-{
-  /* Mini-component propre et réutilisable */
-}
+/** Encadré carré réutilisé dans les sections de présentation. */
 const InfoRow = ({ label }: { label: string }) => (
-  <div className="border-2 border-[#FFBE00] rounded-lg p-4">
-    <p className="font-semibold font-sans text-black">{label}</p>
+  <div className="border-2 border-black bg-white p-4 transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:bg-primary hover:shadow-[5px_5px_0_0_#000]">
+    <p className="font-sans font-semibold text-black">{label}</p>
   </div>
 );
 
+const STATS = [
+  { valeur: "+1200", label: "entreprises &\nartisans\nenregistrés" },
+  { valeur: "+350", label: "stands actifs" },
+  { valeur: "+5 000", label: "utilisateurs\ninscrits" },
+  { valeur: "87 %", label: "d'utilisateurs\nsatisfaits" },
+];
+
+const RAISONS = [
+  "Connecte instantanément les besoins aux services",
+  "Donne une visibilité réelle aux artisans",
+  "Favorise l'économie locale",
+  "Simplifie la vie des populations",
+];
 
 export default function Home() {
-
-    const [activeIndex, setActiveIndex] = useState(0);
-
-  const faqs = [
-    {
-      question: "Est-ce gratuit ?",
-      answer: "Oui. Créer un stand est entièrement gratuit, tout comme l'utilisation de l'application pour les simples utilisateurs"
-    },
-    {
-      question: "Comment passer une commande ?",
-      answer: "Parcourez les stands, sélectionnez vos produits, contactez le vendeur via le chat et confirmez votre commande en quelques clics."
-    },
-    {
-      question: "Quels types de services trouve-t-on sur Axi ?",
-      answer: "Vous trouverez des restaurants, boutiques, artisans, services de proximité, et bien plus encore dans votre région."
-    },
-    {
-      question: "Y a-t-il des abonnements ?",
-      answer: "Non, l'utilisation de base est gratuite. Des fonctionnalités premium pourront être proposées aux vendeurs pour plus de visibilité."
-    }
-  ];
-
   return (
-    <div >
+    <div>
       <Hero />
-      <section className="w-full max-w-6xl mx-auto py-10 px-6 flex flex-col md:flex-row items-center justify-between gap-10">
-        {/* --- RIGHT IMAGES --- */}
-        <div className="flex-1 flex justify-center relative">
+
+      {/* --- Les stands --- */}
+      <section className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-10 px-6 py-12 md:flex-row md:py-16">
+        <Reveal variant="left" className="flex-1">
           <Image
             src="/Image2.png"
-            alt="Axi mobile screens"
+            alt="Écrans de gestion d'un stand Axì"
             width={800}
             height={800}
-            className="w-full h-auto max-w-full"
+            className="h-auto w-full max-w-full"
             priority
           />
-        </div>
-        {/* --- LEFT TEXT --- */}
-        <div className="flex-1">
-          <h2 className="md:text-4xl text-3xl font-heading font-bold mb-4">
+        </Reveal>
+
+        <Reveal variant="right" delay={100} className="flex-1">
+          <h2 className="heading-lg mb-4">
             Leur stand. Leur vitrine. Leur visibilité.
           </h2>
 
-          <p className="text-black font-sans font-medium leading-relaxed mb-4">
+          <p className="mb-4 font-sans font-medium leading-relaxed text-black">
             Sur Axì, les entreprises, PME, vendeuses et artisans créent
             gratuitement leur stand digital.
           </p>
 
-          <p className="text-black font-sans font-medium leading-relaxed mb-8">
-            Ils publient, présentent leurs produits, annoncent leurs nouveautés
-            et touchent davantage de clients — partout au Bénin.
+          <p className="mb-8 font-sans font-medium leading-relaxed text-black">
+            Ils publient, présentent leurs produits, annoncent leurs nouveautés et
+            touchent davantage de clients — partout au Bénin.
           </p>
 
-          <div className="flex flex-col gap-3 text-sm">
-            <div className="flex gap-3 justify-start">
-              <InfoRow label="Création de stand gratuite" />
-              <InfoRow label="Publications illimitées" />
-            </div>
-            <div className="flex gap-3 justify-start">
-              <InfoRow label="Gestion simple et rapide" />
-              <InfoRow label="Visibilité locale renforcée" />
-            </div>
+          <div className="grid gap-3 text-sm sm:grid-cols-2">
+            <InfoRow label="Création de stand gratuite" />
+            <InfoRow label="Publications illimitées" />
+            <InfoRow label="Gestion simple et rapide" />
+            <InfoRow label="Visibilité locale renforcée" />
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      <section className="w-full max-w-6xl mx-auto py-10 px-6 flex flex-col md:flex-row items-center justify-between gap-10">
-        {/* --- RIGHT IMAGES --- */}
-        <div className="flex-1 flex justify-center relative">
+      {/* --- La recherche --- */}
+      <section className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-10 px-6 py-12 md:flex-row md:py-16">
+        <Reveal variant="left" className="flex-1">
           <Image
             src="/Image3.png"
-            alt="Axi mobile screens"
+            alt="Recherche de services de proximité dans Axì"
             width={800}
             height={800}
-            className="w-full h-auto max-w-full"
-            priority
+            className="h-auto w-full max-w-full"
           />
-        </div>
-        {/* --- LEFT TEXT --- */}
-        <div className="flex-1">
-          <h2 className="md:text-4xl text-3xl font-heading font-bold mb-4">
+        </Reveal>
+
+        <Reveal variant="right" delay={100} className="flex-1">
+          <h2 className="heading-lg mb-4">
             Trouvez ce dont vous avez besoin, où que vous soyez.
           </h2>
 
-          <p className="text-black font-sans font-medium leading-relaxed mb-4">
-            Que vous soyez nouveau dans une ville ou à la recherche d’un service
-            précis, Axì vous aide à tout retrouver : restaurants, artisans,
-            boutiques, services de proximité et bien plus encore.
+          <p className="mb-4 font-sans font-medium leading-relaxed text-black">
+            Que vous soyez nouveau dans une ville ou à la recherche d&apos;un
+            service précis, Axì vous aide à tout retrouver : restaurants,
+            artisans, boutiques, services de proximité et bien plus encore.
           </p>
 
-          <p className="text-black font-sans font-medium leading-relaxed mb-8">
+          <p className="mb-8 font-sans font-medium leading-relaxed text-black">
             Parcourez les stands comme si vous étiez sur place, contactez le
             vendeur et passez votre commande en quelques clics.
           </p>
 
-          <div className="flex flex-col gap-3 text-sm">
-            <div className="flex gap-3 justify-start">
-              <InfoRow label="Recherche rapide et intelligente" />
-              <InfoRow label="Discussion avec le stand" />
-            </div>
-            <div className="flex gap-3 justify-start">
-              <InfoRow label="Commandes et réservations en ligne" />
-            </div>
-            <div className="flex gap-3 justify-start">
-              <InfoRow label="Expérience simple et intuitive" />
-            </div>
+          <div className="grid gap-3 text-sm sm:grid-cols-2">
+            <InfoRow label="Recherche rapide et intelligente" />
+            <InfoRow label="Discussion avec le stand" />
+            <InfoRow label="Commandes et réservations en ligne" />
+            <InfoRow label="Expérience simple et intuitive" />
           </div>
-        </div>
+        </Reveal>
       </section>
-      <div className="w-full bg-white py-12 px-8">
-        {/* Bannière illustrative */}
-        <div className="w-full mb-12 flex justify-center">
-          <img
+
+      {/* --- Chiffres --- */}
+      <section className="w-full bg-white px-6 py-12 md:py-16">
+        <Reveal variant="fade" className="mx-auto mb-12 flex w-full max-w-6xl justify-center">
+          <Image
             src="/barre.png"
-            alt="bannière illustrative"
-            className="w-full max-w-6xl h-auto object-contain"
+            alt=""
+            width={1200}
+            height={200}
+            className="h-auto w-full object-contain"
           />
-        </div>
+        </Reveal>
 
-        {/* Titre */}
-        <h2 className="text-3xl font-heading font-bold text-center mb-12 text-black">
-          Axi en quelques chiffres
-        </h2>
-
-{/* Statistiques */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 max-w-6xl mx-auto px-4">
-        {/* Stat 1 */}
-        <div className="flex flex-col items-center relative">
-          <div className="text-5xl font-bold font-heading text-black mb-4">
-            +1200
-          </div>
-          <p className="text-center text-lg font-sans font-medium text-black leading-relaxed">
-            entreprises &<br />
-            artisans
-            <br />
-            enregistré
-          </p>
-          {/* Séparateur horizontal sur mobile/tablette, vertical sur desktop */}
-          <div className="lg:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 h-1.5 w-24 rounded-full bg-[#FFBE00]"></div>
-          <div className="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 w-1.5 h-24 rounded-full bg-[#FFBE00]"></div>
-        </div>
-
-        {/* Stat 2 */}
-        <div className="flex flex-col items-center relative">
-          <div className="text-5xl font-bold font-heading text-black mb-4">
-            +350
-          </div>
-          <p className="text-center text-lg font-sans font-medium text-black">
-            stands actifs
-          </p>
-          {/* Séparateur horizontal sur mobile/tablette, vertical sur desktop */}
-          <div className="lg:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 h-1.5 w-24 rounded-full bg-[#FFBE00]"></div>
-          <div className="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 w-1.5 h-24 rounded-full bg-[#FFBE00]"></div>
-        </div>
-
-        {/* Stat 3 */}
-        <div className="flex flex-col items-center relative">
-          <div className="text-5xl font-bold font-heading text-black mb-4">
-            +5 000
-          </div>
-          <p className="text-center text-lg font-sans font-medium text-black leading-relaxed">
-            utilisateurs
-            <br />
-            inscrits
-          </p>
-          {/* Séparateur horizontal sur mobile/tablette, vertical sur desktop */}
-          <div className="lg:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 h-1.5 w-24 rounded-full bg-[#FFBE00]"></div>
-          <div className="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 w-1.5 h-24 rounded-full bg-[#FFBE00]"></div>
-        </div>
-
-        {/* Stat 4 */}
-        <div className="flex flex-col items-center">
-          <div className="text-5xl font-bold font-heading text-black mb-4">
-            87 %
-          </div>
-          <p className="text-center text-lg font-sans font-medium text-black leading-relaxed">
-            d'utilisateurs
-            <br />
-            satisfaits
-          </p>
-          {/* Pas de séparateur après la dernière stat */}
-        </div>
-      </div>
-    </div>
-
-    {/* Mockup partie */}
-    <section id="download" className="w-full  relative py-8 md:py-16">
-      {/* Fond jaune pleine largeur qui passe derrière */}
-      <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[100%] md:h-[60%] bg-[#FFBE00] -z-10"></div>
-
-      {/* Contenu centré */}
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8 relative">
-        {/* Image des téléphones - dépasse en haut et en bas */}
-        <div className="flex-1 flex justify-center relative z-10 w-full md:w-auto">
-          <div className="relative w-full max-w-[300px] sm:max-w-sm md:max-w-md">
-            <img
-              src="/AxiPhone.png"
-              alt="Axi app mockup"
-              className="w-full h-auto object-contain"
-            />
-          </div>
-        </div>
-
-        {/* Contenu texte et boutons */}
-        <div className="flex-1 flex flex-col items-center md:items-start z-10 text-center md:text-left">
-          <h2 className="text-3xl md:text-4xl font-bold font-heading text-black mb-4">
-            Axi, toujours avec vous.
+        <Reveal>
+          <h2 className="heading-lg mb-12 text-center text-black">
+            Axì en quelques chiffres
           </h2>
+        </Reveal>
 
-          <p className="text-black font-sans text-base md:text-lg mb-6 md:mb-8 leading-relaxed max-w-lg">
-            Téléchargez l'application et découvrez un nouveau
-            mode d'accès aux services de proximité au Bénin.
-          </p>
-
-          {/* Boutons de téléchargement */}
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            {/* Bouton Android */}
-            <a
-              href="#"
-              className="bg-black text-white px-4 md:px-6 py-3 rounded-lg flex items-center gap-3 hover:bg-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 justify-center sm:justify-start"
-            >
-              <img
-                src="/playstore.png"
-                alt="logo Google Play"
-                className="w-8 h-8 md:w-10 md:h-10 flex-shrink-0"
-              />
-
-              <div className="text-left">
-                <div className="text-xs uppercase tracking-wide opacity-90">
-                  Disponible sur
-                </div>
-                <div className="text-xl md:text-2xl font-semibold -mt-1">
-                  Google Play
-                </div>
-              </div>
-            </a>
-
-            {/* Bouton iOS */}
-            <a
-              href="#"
-              className="bg-black text-white px-4 md:px-6 py-3 rounded-lg flex items-center gap-3 hover:bg-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 justify-center sm:justify-start"
-            >
-              <img
-                src="/logo-apple.png"
-                alt="logo App Store"
-                className="w-8 h-8 md:w-10 md:h-10 flex-shrink-0"
-              />
-              <div className="text-left">
-                <div className="text-xs uppercase tracking-wide opacity-90">
-                  Télécharger dans
-                </div>
-                <div className="text-xl md:text-2xl font-semibold -mt-1">
-                  l'App Store
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-      {/* Section supérieure : Titre + Liste + Images */}
-      <div className="w-full max-w-6xl mx-auto py-10 px-6 flex flex-col md:flex-row items-center justify-between gap-10">
-        {/* Partie gauche : Titre et liste */}
-        <div className="flex-1">
-          <h2 className="text-4xl font-bold font-heading text-black mb-8">
-            Pourquoi <span className="text-[#FFBE00]">Axi</span> ?
-          </h2>
-
-          <ul className="space-y-4 text-black font-sans font-medium text-lg">
-            <li className="flex items-start gap-3">
-              <span className="text-[#FFBE00] font-bold text-xl">•</span>
-              <span>Connecte instantanément les besoins aux services</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-[#FFBE00] font-bold text-xl">•</span>
-              <span>Donne une visibilité réelle aux artisans</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-[#FFBE00] font-bold text-xl">•</span>
-              <span>Favorise l'économie locale</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-[#FFBE00] font-bold text-xl">•</span>
-              <span>Simplifie la vie des populations</span>
-            </li>
-          </ul>
-        </div>
-
-        {/* Partie droite : Images des téléphones */}
-        <div className="flex-1 flex justify-center items-center gap-4">
-            <Image
-              src="/Mockup-phone.png"
-              alt="Axi app screen 1"
-              width={800}
-              height={800}
-              className="w-full h-auto max-w-full"
-              priority
-            />
-        </div>
-      </div>
-
-
-    {/* Section vidéo YouTube */}
-    <div className="px-8">
-<div className="relative max-w-4xl mx-auto w-full rounded-md overflow-hidden mt-4 shadow-2xl  md:px-0">
-  {/* Image de fond avec overlay */}
-  <div className="relative w-full aspect-video bg-gray-200 rounded-md overflow-hidden">
-    <img
-      src="/clip.jpg"
-      alt="Vidéo présentation Axi"
-      className="w-full h-full object-cover"
-    />
-
-    {/* Overlay sombre */}
-    <div className="absolute inset-0"></div>
-
-    {/* Logo et texte en haut à gauche */}
-    <div className="absolute top-3 md:top-6 left-3 md:left-6 flex items-center gap-2 md:gap-3">
-      <Image
-        src="/AxiLogo.png"
-        width={50}
-        height={50}
-        alt="Logo"
-        className="w-8 h-8 md:w-[50px] md:h-[50px]"
-      />
-      <span className="text-white text-xs sm:text-sm md:text-lg font-sans leading-tight">
-        Découvrir Axi, le marché<br className="sm:hidden" /> digital de proximité
-      </span>
-    </div>
-
-    {/* Bouton play YouTube au centre */}
-    <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-14 md:w-28 md:h-16 bg-red-600 rounded-lg flex items-center justify-center hover:bg-red-700 transition-colors shadow-lg active:scale-95">
-      <svg
-        className="w-8 h-8 md:w-10 md:h-10 text-white ml-1"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-      >
-        <path d="M8 5v14l11-7z" />
-      </svg>
-    </button>
-
-    {/* Badge YouTube en bas à droite */}
-    <a 
-      href="#"
-      className="absolute bottom-3 md:bottom-6 right-3 md:right-6 bg-black bg-opacity-70 px-2.5 md:px-4 py-1.5 md:py-2 rounded-lg flex items-center gap-1.5 md:gap-2 hover:bg-opacity-90 transition-all"
-    >
-      <svg
-        className="w-4 h-4 md:w-5 md:h-5 text-white flex-shrink-0"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-      >
-        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-      </svg>
-      <span className="text-white text-xs md:text-sm font-medium whitespace-nowrap">
-        Regarder sur YouTube
-      </span>
-    </a>
-  </div>
-</div>
-    </div>
-
-
-       <div className="max-w-6xl mx-auto mt-20 px-8 md:px-0">
-        
-        {/* Titre */}
-        <h2 className="text-4xl font-bold font-heading text-black mb-12">FAQ</h2>
-
-        <div className="flex flex-col md:flex-row gap-8">
-          
-          {/* Liste des questions - Colonne gauche */}
-          <div className="flex-1 space-y-3">
-            {faqs.map((faq, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveIndex(index)}
-                className={`w-full text-left px-6 py-4 rounded-lg transition-all duration-300 ${
-                  activeIndex === index
-                    ? 'bg-gray-100 border-l-4 border-[#FFBE00] font-semibold'
-                    : 'bg-white hover:bg-gray-50 border-l-4 border-transparent'
-                }`}
+        <Reveal delay={100}>
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-px border-2 border-black bg-black sm:grid-cols-2 lg:grid-cols-4">
+            {STATS.map((stat) => (
+              <div
+                key={stat.valeur}
+                className="stagger-item group flex flex-col items-center bg-white p-8 text-center transition-colors duration-300 hover:bg-primary"
               >
-                <div className="flex items-center justify-between">
-                  <span className="text-black font-sans text-lg">{faq.question}</span>
-                  {activeIndex === index && (
-                    <svg className="w-5 h-5 text-[#FFBE00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                      <path d="M9 5l7 7-7 7" />
-                    </svg>
-                  )}
+                <div className="font-heading text-5xl font-bold text-black">
+                  {stat.valeur}
                 </div>
-              </button>
+                <p className="mt-4 whitespace-pre-line font-sans text-lg font-medium leading-relaxed text-black">
+                  {stat.label}
+                </p>
+              </div>
             ))}
           </div>
+        </Reveal>
+      </section>
 
-          {/* Réponse - Colonne droite */}
-          <div className="flex-1">
-            <div className="bg-[#FFBE00] rounded-lg p-8 relative min-h-[250px] flex flex-col justify-between shadow-lg">
-              {/* Contenu de la réponse */}
-              <p className="text-black font-sans items-center font-medium text-lg leading-relaxed mb-6">
-                {faqs[activeIndex].answer}
-              </p>        
+      {/* --- Téléchargement --- */}
+      <section id="download" className="relative w-full py-8 md:py-16">
+        <div
+          aria-hidden
+          className="absolute left-0 right-0 top-1/2 -z-10 h-full -translate-y-1/2 border-y-2 border-black bg-primary md:h-3/5"
+        />
+
+        <div className="relative mx-auto flex max-w-6xl flex-col items-center justify-between gap-8 px-6 md:flex-row md:gap-12 md:px-8">
+          <Reveal variant="left" className="flex w-full flex-1 justify-center">
+            <div className="relative w-full max-w-[300px] sm:max-w-sm md:max-w-md">
+              <Image
+                src="/AxiPhone.png"
+                alt="L'application Axì sur mobile"
+                width={800}
+                height={800}
+                className="h-auto w-full animate-float object-contain"
+              />
+            </div>
+          </Reveal>
+
+          <Reveal
+            variant="right"
+            delay={100}
+            className="flex flex-1 flex-col items-center text-center md:items-start md:text-left"
+          >
+            <h2 className="heading-lg mb-4 text-black">Axì, toujours avec vous.</h2>
+
+            <p className="mb-6 max-w-lg font-sans text-base leading-relaxed text-black md:mb-8 md:text-lg">
+              Téléchargez l&apos;application et découvrez un nouveau mode
+              d&apos;accès aux services de proximité au Bénin.
+            </p>
+
+            <div className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
+              <Link
+                href="/telecharger"
+                className="flex items-center justify-center gap-3 border-2 border-black bg-black px-4 py-3 text-white transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000] sm:justify-start md:px-6"
+              >
+                <Image
+                  src="/playstore.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="h-8 w-8 shrink-0 md:h-10 md:w-10"
+                />
+                <span className="text-left">
+                  <span className="block text-xs uppercase tracking-wide opacity-90">
+                    Disponible sur
+                  </span>
+                  <span className="-mt-1 block text-xl font-semibold md:text-2xl">
+                    Google Play
+                  </span>
+                </span>
+              </Link>
+
+              <Link
+                href="/telecharger"
+                className="flex items-center justify-center gap-3 border-2 border-black bg-black px-4 py-3 text-white transition-all duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0_0_#000] sm:justify-start md:px-6"
+              >
+                <Image
+                  src="/logo-apple.png"
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="h-8 w-8 shrink-0 md:h-10 md:w-10"
+                />
+                <span className="text-left">
+                  <span className="block text-xs uppercase tracking-wide opacity-90">
+                    Télécharger dans
+                  </span>
+                  <span className="-mt-1 block text-xl font-semibold md:text-2xl">
+                    l&apos;App Store
+                  </span>
+                </span>
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* --- Pourquoi Axì --- */}
+      <section className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-10 px-6 py-12 md:flex-row md:py-16">
+        <Reveal variant="left" className="flex-1">
+          <h2 className="heading-lg mb-8 text-black">
+            Pourquoi <span className="text-primary">Axì</span> ?
+          </h2>
+
+          <ul className="space-y-4 font-sans text-lg font-medium text-black">
+            {RAISONS.map((raison) => (
+              <li key={raison} className="group flex items-start gap-4">
+                <span
+                  className="mt-2 h-3 w-3 shrink-0 bg-primary transition-transform duration-300 group-hover:scale-150"
+                  aria-hidden
+                />
+                <span>{raison}</span>
+              </li>
+            ))}
+          </ul>
+
+          <Link href="/a-propos" className="btn-primary group mt-8">
+            En savoir plus sur Axì
+            <ArrowRight
+              size={18}
+              className="transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden
+            />
+          </Link>
+        </Reveal>
+
+        <Reveal variant="right" delay={100} className="flex flex-1 justify-center">
+          <Image
+            src="/Mockup-phone.png"
+            alt="Écrans de l'application Axì"
+            width={800}
+            height={800}
+            className="h-auto w-full max-w-full"
+          />
+        </Reveal>
+      </section>
+
+      {/* --- Vidéo --- */}
+      <section className="px-6">
+        <Reveal variant="scale">
+          <VideoPreview />
+        </Reveal>
+      </section>
+
+      {/* --- FAQ --- */}
+      <section className="mx-auto mt-20 max-w-6xl px-6">
+        <Reveal>
+          <h2 className="heading-lg mb-12 text-black">FAQ</h2>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <Faq />
+        </Reveal>
+
+        <Reveal delay={150}>
+          <p className="mt-8 font-sans text-sm text-gray-600">
+            D&apos;autres questions ?{" "}
+            <Link
+              href="/aide"
+              className="font-semibold text-black underline decoration-primary decoration-4 underline-offset-4 transition-colors hover:text-primary"
+            >
+              Consultez le centre d&apos;aide
+            </Link>
+            .
+          </p>
+        </Reveal>
+      </section>
+
+      {/* --- Équipe --- */}
+      <section className="mx-auto mt-16 max-w-6xl px-6">
+        <Reveal>
+          <div className="mb-12 text-center">
+            <h2 className="heading-lg mb-4 text-black">Une équipe proche de vous</h2>
+            <p className="mx-auto max-w-3xl font-sans text-lg leading-relaxed text-black">
+              Des individus passionnés dédiés à l&apos;autonomisation des
+              entrepreneurs africains et à la construction de l&apos;avenir du
+              commerce.
+            </p>
+          </div>
+        </Reveal>
+
+        <Reveal variant="scale" delay={100}>
+          <div className="mx-auto max-w-xl">
+            <div className="relative">
+              <div
+                aria-hidden
+                className="absolute -bottom-4 -right-4 h-full w-full border-2 border-primary"
+              />
+              <Image
+                src="/teamImage.png"
+                alt="L'équipe Axì"
+                width={1000}
+                height={700}
+                className="relative h-auto w-full border-2 border-black object-contain"
+              />
+            </div>
+
+            <div className="mt-8 text-center">
+              <Link href="/equipe" className="btn-outline group">
+                Rencontrer l&apos;équipe
+                <ArrowRight
+                  size={18}
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                  aria-hidden
+                />
+              </Link>
             </div>
           </div>
-
-        </div>
-      </div>
-
-       <div className="max-w-6xl mx-auto mt-16 px-8 md:px-0">
-        
-        {/* Titre et description */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold font-heading text-black mb-4">
-            Une équipe proche de vous
-          </h2>
-          <p className="text-black font-sans text-lg max-w-3xl mx-auto leading-relaxed">
-            Des individus passionnés dédiés à l'autonomisation des entrepreneurs<br />
-            africains et à la construction de l'avenir du commerce.
-          </p>
-        </div>
-
-        {/* Image de l'équipe */}
-        <div className="max-w-xl mx-auto flex justify-center">
-          <img 
-            src="/teamImage.png" 
-            alt="L'équipe Axi" 
-            className="w-full max-w-4xl h-auto object-contain rounded-3xl"
-          />
-        </div>
-
-      </div>
-
+        </Reveal>
+      </section>
     </div>
   );
 }

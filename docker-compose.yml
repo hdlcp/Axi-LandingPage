@@ -1,0 +1,35 @@
+services:
+  # Développement : http://localhost:3002 avec rechargement à chaud
+  # (3000 et 3001 sont déjà pris par d'autres projets de la machine)
+  web:
+    build:
+      context: .
+      target: dev
+    container_name: axi-web-dev
+    ports:
+      - "3002:3000"
+    volumes:
+      # Le code local est monté dans le conteneur…
+      - .:/app
+      # …mais node_modules et .next restent ceux du conteneur (Linux).
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NEXT_TELEMETRY_DISABLED=1
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+    restart: unless-stopped
+
+  # Production (VPS) : docker compose --profile prod up -d --build web-prod
+  web-prod:
+    build:
+      context: .
+      target: prod
+    container_name: axi-web-prod
+    ports:
+      - "3003:3000"
+    environment:
+      - NEXT_TELEMETRY_DISABLED=1
+    profiles:
+      - prod
+    restart: unless-stopped
